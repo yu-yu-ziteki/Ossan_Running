@@ -1,21 +1,24 @@
 #include "TestScene.h"
 #include "Player.h"
 #include "Ground.h"
-#include "Engine\\Camera.h"
+#include "Engine/Camera.h"
+
 //コンストラクタ
-TestScene::TestScene(GameObject * parent)
+TestScene::TestScene(GameObject* parent)
 	: GameObject(parent, "TestScene")
 {
 }
 
 //初期化
 void TestScene::Initialize()
-{	
+{
 	//pWp = Instantiate<Weapon>(this);
-	Instantiate <Player>(this);
-	Instantiate<Ground>(this);
+	Player* pPlayer = Instantiate <Player>(this);
+	Ground* pGround = Instantiate<Ground>(this);
+	pPlayer->SetGround(pGround);
+
 	Camera::SetPosition({ 0,10,-20 });
-	Camera::SetTarget({ 0, 0, 0 });
+	Camera::SetTarget({ 0,0,0 });
 
 }
 
