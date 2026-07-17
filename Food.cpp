@@ -1,8 +1,13 @@
 #include "Food.h"
 #include "Engine/Model.h"
+#include "Engine/SphereCollider.h"
+#include "Engine/Debug.h"
+
 Food::Food(GameObject* parent)
 	:GameObject(parent, "Food"), type_(FOODTYPE_NORMAL), hModel_(-1), score_(0)
 {
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 1.2f);
+	AddCollider(collision);
 }
 
 Food::~Food()
@@ -18,6 +23,7 @@ void Food::Initialize()
 
 void Food::Update()
 {
+
 }
 
 void Food::Draw()

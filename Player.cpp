@@ -4,6 +4,9 @@
 #include "TestScene.h"
 #include "Engine/Input.h"
 #include "Ground.h"
+#include "Engine/SphereCollider.h"
+#include "Food.h"
+#include "Engine/Debug.h"
 
 namespace
 {
@@ -56,6 +59,8 @@ Player::Player(GameObject* parent)
 	//swordDirには、初期方向として、ローカルモデルの剣の根っこから
 	//先端までのベクトルとして（0,1,0)を代入しておく
 	//初期位置は原点
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 1.2f);
+	AddCollider(collision);
 }
 
 void Player::Initialize()
@@ -172,6 +177,7 @@ void Player::Update()
 	}
 
 	//pos = XMVectorAdd(pos, SPEED*move);
+
 }
 
 void Player::Draw()
@@ -195,4 +201,12 @@ void Player::Draw()
 
 void Player::Release()
 {
+}
+
+void Player::OnCollision(GameObject* pTarget)
+{
+	if (pTarget->GetObjectName() == "Food")
+	{
+		((Food*)pTarget)->KillMe();
+	}
 }
