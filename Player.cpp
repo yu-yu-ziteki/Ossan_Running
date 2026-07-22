@@ -6,7 +6,7 @@
 #include "Ground.h"
 #include "Engine/SphereCollider.h"
 #include "Food.h"
-#include "Engine/Debug.h"
+
 
 namespace
 {
@@ -55,7 +55,7 @@ namespace
 
 
 Player::Player(GameObject* parent)
-	:GameObject(parent), hWalkModel_(-1), hIdleModel_(-1) {
+	:GameObject(parent, "Player"), hWalkModel_(-1), hIdleModel_(-1) {
 	//swordDirには、初期方向として、ローカルモデルの剣の根っこから
 	//先端までのベクトルとして（0,1,0)を代入しておく
 	//初期位置は原点
@@ -207,6 +207,16 @@ void Player::OnCollision(GameObject* pTarget)
 {
 	if (pTarget->GetObjectName() == "Food")
 	{
+		Food* food = (Food*)pTarget;
 		((Food*)pTarget)->KillMe();
+		
+		if (food->GetFoodType() == FOODTYPE_NORMAL)
+		{
+			score_ += 10;
+		}
+		else if (food->GetFoodType() == FOODTYPE_POWER)
+		{
+			score_ += 10000;
+		}
 	}
 }

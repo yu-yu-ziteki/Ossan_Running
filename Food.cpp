@@ -4,8 +4,8 @@
 #include "Engine/Debug.h"
 
 Food::Food(GameObject* parent)
-	:GameObject(parent, "Food"), type_(FOODTYPE_NORMAL), hModel_(-1), score_(0)
-{
+	:GameObject(parent, "Food"), type_(FOODTYPE_NORMAL), hModel_(-1)
+	{
 	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 1.2f);
 	AddCollider(collision);
 }
@@ -42,12 +42,12 @@ void Food::SetFoodType(foodType type)
 	if (type_ == foodType::FOODTYPE_NORMAL)
 	{
 		hModel_ = Model::Load("food.fbx");
-		score_ += 1;
+
 	}
 	else if (type_ == foodType::FOODTYPE_POWER)
 	{
 		hModel_ = Model::Load("Enemy.fbx");
-		score_ += 5;
+
 	}
 
 
@@ -55,4 +55,5 @@ void Food::SetFoodType(foodType type)
 
 void Food::onCollision(GameObject* pTarget)
 {
+
 }

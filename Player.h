@@ -22,8 +22,13 @@ public:
 		ground_ = ground;
 	}
 	void OnCollision(GameObject* pTarget) override;
+	//void AddScore(int value) { score_ += value; }
+	int GetScore() { return score_; }
 private:
 	int hWalkModel_;//歩きアニメーションのモデルハンドル
 	int hIdleModel_;//待機アニメーションのモデルハンドル
 	Ground* ground_;//地面オブジェクトのポインタ
+	int score_ = 0;
+	
+
 };

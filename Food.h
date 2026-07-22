@@ -19,9 +19,11 @@ public:
     void Release()override;
     void SetFoodType(foodType type);
     void onCollision(GameObject* pTarget);
+    foodType GetFoodType() { return type_; }
+    
 private:
     foodType type_;
     int hModel_;
-    int score_;
+
 };
 
