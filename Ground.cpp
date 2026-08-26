@@ -3,7 +3,7 @@
 #include "Engine/CsvReader.h"
 #include "Player.h"
 #include "Food.h"
-
+#include "Enemy.h"
 
 namespace
 {
@@ -28,6 +28,8 @@ Ground::Ground(GameObject* parent)
 			mapData_[y][x] = csvData.GetValue(x, y);
 		}
 	}
+
+
 	objmap_ = vector<vector<int>>(mapHeight_ / 2, vector<int>(mapWidth_, 0));
 	for (int x = 0; x < mapWidth_; x++) {
 		for (int y = 0; y < mapHeight_ / 2; y++) {
@@ -36,7 +38,6 @@ Ground::Ground(GameObject* parent)
 
 			if (objmap_[y][x] == 1 || objmap_[y][x] == 2) {
 				Food* food = Instantiate<Food>(this);
-
 				food->SetPosition({ -9.0f + x * 2.0f, 0.0f, 9.0f - y * 2.0f });
 
 				if (objmap_[y][x] == 1) {

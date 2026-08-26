@@ -26,4 +26,6 @@ public:
 private:
 	Text* pText_;
 	int score = 10;
+	int time = 0;
+	int life;
 };
