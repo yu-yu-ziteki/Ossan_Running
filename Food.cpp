@@ -46,7 +46,7 @@ void Food::SetFoodType(foodType type)
 	}
 	else if (type_ == foodType::FOODTYPE_POWER)
 	{
-		hModel_ = Model::Load("Enemy.fbx");
+		hModel_ = Model::Load("dekaesa.fbx");
 
 	}
 

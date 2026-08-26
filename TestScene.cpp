@@ -4,9 +4,7 @@
 #include "Engine/Camera.h"
 #include "Engine/Text.h"
 
-namespace {
-	int myScore = 10;
-}
+
 
 //コンストラクタ
 TestScene::TestScene(GameObject* parent)
