@@ -101,16 +101,16 @@ void Player::Update()
 			pdirection = PLAYER_DIRECTION::PLAYER_RIGHT;
 			pstate = PLAYER_STATE::PLAYER_WALK;
 		}
-		if (Input::IsKey(DIK_UP))
+		/*if (Input::IsKey(DIK_UP))
 		{
 			pdirection = PLAYER_DIRECTION::PLAYER_UP;
 			pstate = PLAYER_STATE::PLAYER_WALK;
-		}
-		if (Input::IsKey(DIK_DOWN))
+		}*/
+		/*if (Input::IsKey(DIK_DOWN))
 		{
 			pdirection = PLAYER_DIRECTION::PLAYER_DOWN;
 			pstate = PLAYER_STATE::PLAYER_WALK;
-		}
+		}*/
 	}
 	if (oldDir != pdirection) {
 		//âÒì]ÇµÇ»Ç´Ç·ÇæÇÊÅB

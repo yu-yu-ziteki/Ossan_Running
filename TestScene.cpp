@@ -23,7 +23,7 @@ void TestScene::Initialize()
 	Enemy* enemy = Instantiate<Enemy>(this);
 	pPlayer->SetGround(pGround);
 
-	Camera::SetPosition({ 0,10,-20 });
+	Camera::SetPosition({ 0,2,-30 });
 	Camera::SetTarget({ 0,0,0 });
 
 	pText_ = new Text;
@@ -35,13 +35,15 @@ void TestScene::Update()
 {
 	Player* player = (Player*)FindObject("Player");
 	life = player->GetLife();
+	Camera::SetPosition({player->GetPosition().x, player->GetPosition().y + 5 , player->GetPosition().z  + -30});
+	Camera::SetTarget({ player->GetPosition().x, player->GetPosition().y + 15, player->GetPosition().z + 30});
 	static int frameCount = 0;
 	frameCount++;
 	if (frameCount % 60 <= 0) {
 		time++;
 	}
 	Food* food = (Food*)FindObject("Food");
-	{
+	/*{
 		if (food == nullptr)
 		{
 			SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
@@ -50,7 +52,7 @@ void TestScene::Update()
 				pSceneManager->ChangeScene(SCENE_ID_CLEAR);
 			}
 		}
-	}
+	}*/
 	if (life <= 0)
 	{
 		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
