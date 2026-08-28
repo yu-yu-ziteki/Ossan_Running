@@ -22,6 +22,7 @@ private:
 	int hModel_;
 	std::vector<std::vector<int>> mapData_;
 	std::vector<std::vector<int>> objmap_;
+	std::vector<std::vector<int>> enemymap_;
 	int mapWidth_;
 	int mapHeight_;
 	Transform ftr;

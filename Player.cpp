@@ -6,6 +6,7 @@
 #include "Ground.h"
 #include "Engine/SphereCollider.h"
 #include "Food.h"
+#include "Enemy.h"
 
 
 namespace
@@ -59,7 +60,7 @@ Player::Player(GameObject* parent)
 	//swordDirには、初期方向として、ローカルモデルの剣の根っこから
 	//先端までのベクトルとして（0,1,0)を代入しておく
 	//初期位置は原点
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 1.2f);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 0.8f);
 	AddCollider(collision);
 }
 
@@ -74,14 +75,7 @@ void Player::Initialize()
 
 void Player::Update()
 {
-	//transform_.rotate_.y +=1;
-	//static float angle = 0.0;
-	//angle = angle + 0.3f;
-	//XMMATRIX scale = XMMatrixScaling(1.0f, 1.0f, 1.0f);
-	//XMMATRIX rotateX = XMMatrixRotationX(XMConvertToRadians(angle));
-	//XMMATRIX rotate = XMMatrixRotationY(XMConvertToRadians(angle));
-	//XMMATRIX translate = XMMatrixTranslation(1.0f, 0.0f, 0.0f);
-	//SetWorldMatrix(scale *  rotate * translate);
+	if (invTimer_ > 0.0f) invTimer_ -= 1.0f;
 
 	XMVECTOR pos = XMLoadFloat3(&transform_.position_);
 	XMVECTOR move = XMVectorSet(0, 0, 0, 0);
@@ -219,4 +213,11 @@ void Player::OnCollision(GameObject* pTarget)
 			score_ += 10000;
 		}
 	}
+	if (pTarget->GetObjectName() == "Enemy") {
+		if (invTimer_ <= 0.0f) {
+			invTimer_ = 60.0f;
+			life_ -= 1;
+		}
+	}
+
 }

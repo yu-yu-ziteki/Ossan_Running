@@ -47,11 +47,19 @@ void TestScene::Update()
 			SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
 			if (pSceneManager != nullptr)
 			{
-				pSceneManager->ChangeScene(SCENE_ID_TITLE);
+				pSceneManager->ChangeScene(SCENE_ID_CLEAR);
 			}
 		}
 	}
-	
+	if (life <= 0)
+	{
+		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+
+		if (pSceneManager != nullptr)
+		{
+			pSceneManager->ChangeScene(SCENE_ID_OVER);
+		}
+	}
 }
 
 //•`‰æ

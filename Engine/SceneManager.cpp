@@ -1,6 +1,8 @@
 #include "sceneManager.h"
 #include "../TitleScene.h"
 #include "../TestScene.h"
+#include "../ClearScene.h"
+#include "../OverScene.h"
 #include "Model.h"
 #include "Image.h"
 #include "Audio.h"
@@ -44,6 +46,12 @@ void SceneManager::Update()
 
 		case SCENE_ID_TEST: 
 			Instantiate<TestScene>(this); 
+			break;
+		case SCENE_ID_CLEAR:
+			Instantiate<ClearScene>(this);
+			break;
+		case SCENE_ID_OVER:
+			Instantiate<OverScene>(this);
 			break;
 		}
 		Audio::Initialize();

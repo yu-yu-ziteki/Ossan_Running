@@ -31,5 +31,6 @@ private:
 	Ground* ground_;//地面オブジェクトのポインタ
 	int score_ = 0;
 	int life_ = 5;
+	float invTimer_ = 0;
 
 };

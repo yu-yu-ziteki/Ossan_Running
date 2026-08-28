@@ -1,14 +1,13 @@
 #pragma once
 #include "Engine/GameObject.h"
+#include "Engine/Model.h"
 
 class Text;
 //テストシーンを管理するクラス
-class Enemy : public GameObject
+class OverScene : public GameObject
 {
 public:
-	//コンストラクタ
-	//引数：parent  親オブジェクト（SceneManager）
-	Enemy(GameObject* parent);
+	OverScene(GameObject* parent);
 
 	//初期化
 	void Initialize() override;
@@ -24,5 +23,5 @@ public:
 
 private:
 	int hModel_;
-	float jumpAngle;
+	Text* pText_;
 };

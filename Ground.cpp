@@ -23,32 +23,51 @@ Ground::Ground(GameObject* parent)
 
 	mapData_ = vector<vector<int>>(mapHeight_ / 2, vector<int>(mapWidth_, 0));
 
-	for (int x = 0; x < mapWidth_; x++) {
-		for (int y = 0;y < mapHeight_ / 2;y++) {
+	for (int x = 0; x < mapWidth_; x++) 
+	{
+		for (int y = 0;y < mapHeight_ / 2;y++) 
+		{
 			mapData_[y][x] = csvData.GetValue(x, y);
 		}
 	}
 
 
-	objmap_ = vector<vector<int>>(mapHeight_ / 2, vector<int>(mapWidth_, 0));
-	for (int x = 0; x < mapWidth_; x++) {
-		for (int y = 0; y < mapHeight_ / 2; y++) {
+	objmap_ = vector<vector<int>>(10, vector<int>(mapWidth_, 0));
+	for (int x = 0; x < mapWidth_; x++)
+	{
+		for (int y = 0; y < 10; y++)
+		{
+			objmap_[y][x] = csvData.GetValue(x, y + 10);
 
-			objmap_[y][x] = csvData.GetValue(x, y + (mapHeight_ / 2));
-
-			if (objmap_[y][x] == 1 || objmap_[y][x] == 2) {
+			if (objmap_[y][x] == 1 || objmap_[y][x] == 2)
+			{
 				Food* food = Instantiate<Food>(this);
 				food->SetPosition({ -9.0f + x * 2.0f, 0.0f, 9.0f - y * 2.0f });
 
-				if (objmap_[y][x] == 1) {
+				if (objmap_[y][x] == 1)
+				{
 					food->SetFoodType(foodType::FOODTYPE_NORMAL);
 				}
-				else if (objmap_[y][x] == 2) {
+				else if (objmap_[y][x] == 2)
+				{
 					food->SetFoodType(foodType::FOODTYPE_POWER);
 				}
 			}
 		}
 	}
+
+	enemymap_ = vector<vector<int>>(10, vector<int>(mapWidth_, 0));
+	for (int x = 0; x < mapWidth_; x++) {
+		for (int y = 0; y < 10; y++) {
+			enemymap_[y][x] = csvData.GetValue(x, y + 20); 
+
+			if (enemymap_[y][x] == 3) {
+				Enemy* enemy = Instantiate<Enemy>(this);
+				enemy->SetPosition({ -9.0f + x * 2.0f, 0.0f, 9.0f - y * 2.0f });
+			}
+		}
+	}
+
 }
 
 void Ground::Initialize()

@@ -168,6 +168,7 @@
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="OverScene.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TitleScene.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Food.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="OverScene.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TitleScene.h" />

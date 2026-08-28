@@ -1,24 +1,25 @@
 #include "Enemy.h"
 #include "Engine/Model.h"
 #include "Ground.h"
+#include "Engine/SphereCollider.h"
 
 Enemy::Enemy(GameObject* parent)
 	:GameObject(parent, "Enemy"), hModel_(0)
 {
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0),0.8f);
+	AddCollider(collision);
 }
 
 void Enemy::Initialize()
 {
 	hModel_ = Model::Load("Enemy.fbx");
 	transform_.position_ = { 3,0,-1 };
-	transform_.scale_ = { 0.6,0.6,0.6 };
-	Ground* ground = (Ground*)FindObject("Ground");
-	 mapData_ = ground->GetMapData();
+	transform_.scale_ = { 0.6f,0.6f,0.6f };
+	jumpAngle = (float)(rand() % 100);
 }
 
 void Enemy::Update()
 {
-	static float jumpAngle = 0.0f;
 	jumpAngle += 0.02f;
 
 	
@@ -29,7 +30,7 @@ void Enemy::Update()
 	else
 	{
 		jumpAngle = 0.0f; 
-		transform_.position_.y = -2.0f; 
+		transform_.position_.y =-2.0f; 
 	}
 }
 
