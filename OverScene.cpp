@@ -20,6 +20,7 @@ void OverScene::Initialize()
 
 void OverScene::Update()
 {
+
 	count++;
 	if (Input::IsKeyDown(DIK_SPACE))
 	{
