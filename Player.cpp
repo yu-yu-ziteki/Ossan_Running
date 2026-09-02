@@ -147,7 +147,7 @@ void Player::Update()
 			transform_.rotate_.y = P_ANGLE[pdirection];
 			pstate = PLAYER_STATE::PLAYER_WALK;
 		}
-		return;//早期リターンで、回転中は移動しないようにする
+		//return;//早期リターンで、回転中は移動しないようにする
 	}
 	else if (pstate != PLAYER_STATE::PLAYER_IDLE)
 	{
@@ -171,7 +171,7 @@ void Player::Update()
 	}
 
 	//pos = XMVectorAdd(pos, SPEED*move);
-	if (!isJump_ && Input::IsKey(DIK_SPACE)) 
+	if (!isJump_ && Input::IsKey(DIK_SPACE))
 	{
 		jumpVelocity_ = 0.2f; // 初速
 		isJump_ = true;
@@ -179,9 +179,9 @@ void Player::Update()
 	if (isJump_)
 	{
 		transform_.position_.y += jumpVelocity_;
-		jumpVelocity_ -= 0.01f;                  
+		jumpVelocity_ -= 0.01f;
 
-	
+
 		if (transform_.position_.y <= -7.0f)
 		{
 			transform_.position_.y = -7.0f;

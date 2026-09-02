@@ -6,6 +6,7 @@
 #include "food.h"
 #include "Engine/SceneManager.h"
 #include"Enemy.h"
+#include "Engine/Sprite.h"
 
 
 //コンストラクタ
@@ -24,11 +25,13 @@ void TestScene::Initialize()
 	pPlayer->SetGround(pGround);
 	startPlayerPos = pPlayer->GetPosition();
 
-	Camera::SetPosition({ pPlayer->GetPosition().x + 10.0f, pPlayer->GetPosition().y + 1 , pPlayer->GetPosition().z + -20 });
+	Camera::SetPosition({ startPlayerPos.x + 10.0f, startPlayerPos.y + 1 , startPlayerPos.z + -20 });
 	Camera::SetTarget({startPlayerPos.x + 10.0f, startPlayerPos.y + 10, startPlayerPos.z + 30 });
 
 	pText_ = new Text;
 	pText_ -> Initialize();
+	pBackgroundSprite_ = new Sprite();
+	pBackgroundSprite_->Load("maps.jpg");
 }
 
 //更新
@@ -39,7 +42,7 @@ void TestScene::Update()
 	XMFLOAT3 camPos = Camera::GetPosition();
 	if (player->GetPosition().x > 15.0f && player->GetPosition().x < 40.0f) {
 		Camera::SetPosition({ player->GetPosition().x, startPlayerPos.y + 1 , startPlayerPos.z + -20 });
-		Camera::SetTarget({ player->GetPosition().x, player->GetPosition().y + 10, player->GetPosition().z + 30});
+		Camera::SetTarget({ player->GetPosition().x, startPlayerPos.y + 10, startPlayerPos.z + 30});
 	}
 	static int frameCount = 0;
 	frameCount++;
@@ -83,10 +86,14 @@ void TestScene::Draw()
 	pText_->Draw(20, 60, timeText.c_str());
 	std::string lifeText = "LIFE: " + std::to_string(life);
 	pText_->Draw(20, 100, lifeText.c_str());
+	Transform bgTransform;
+	RECT rect = { 0, 0, (LONG)pBackgroundSprite_->GetTextureSize().x, (LONG)pBackgroundSprite_->GetTextureSize().y };
+	pBackgroundSprite_->Draw(bgTransform, rect, 1.0f);
 }
 
 //開放
 void TestScene::Release()
 {
 	pText_->Release();//テキスト開放
+	delete pBackgroundSprite_;
 }

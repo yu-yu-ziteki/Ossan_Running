@@ -1,6 +1,7 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include "Engine/Model.h"
+#include "Engine/Sprite.h"
 
 class Text;
 //テストシーンを管理するクラス
@@ -28,5 +29,6 @@ private:
 	int score = 10;
 	int time = 0;
 	int life;
+	Sprite* pBackgroundSprite_;
 	XMFLOAT3 startPlayerPos;
 };
