@@ -32,5 +32,7 @@ private:
 	int score_ = 0;
 	int life_ = 5;
 	float invTimer_ = 0;
+	float jumpVelocity_ = 0.0f; 
+	bool isJump_ = false;       
 
 };

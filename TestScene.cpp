@@ -20,11 +20,12 @@ void TestScene::Initialize()
 	//pWp = Instantiate<Weapon>(this);
 	Player* pPlayer = Instantiate <Player>(this);
 	Ground* pGround = Instantiate<Ground>(this);
-	Enemy* enemy = Instantiate<Enemy>(this);
+	//Enemy* enemy = Instantiate<Enemy>(this);
 	pPlayer->SetGround(pGround);
+	startPlayerPos = pPlayer->GetPosition();
 
-	Camera::SetPosition({ 0,2,-30 });
-	Camera::SetTarget({ 0,0,0 });
+	Camera::SetPosition({ pPlayer->GetPosition().x + 10.0f, pPlayer->GetPosition().y + 1 , pPlayer->GetPosition().z + -20 });
+	Camera::SetTarget({startPlayerPos.x + 10.0f, startPlayerPos.y + 10, startPlayerPos.z + 30 });
 
 	pText_ = new Text;
 	pText_ -> Initialize();
@@ -35,8 +36,11 @@ void TestScene::Update()
 {
 	Player* player = (Player*)FindObject("Player");
 	life = player->GetLife();
-	Camera::SetPosition({player->GetPosition().x, player->GetPosition().y + 5 , player->GetPosition().z  + -30});
-	Camera::SetTarget({ player->GetPosition().x, player->GetPosition().y + 15, player->GetPosition().z + 30});
+	XMFLOAT3 camPos = Camera::GetPosition();
+	if (player->GetPosition().x > 15.0f && player->GetPosition().x < 40.0f) {
+		Camera::SetPosition({ player->GetPosition().x, startPlayerPos.y + 1 , startPlayerPos.z + -20 });
+		Camera::SetTarget({ player->GetPosition().x, player->GetPosition().y + 10, player->GetPosition().z + 30});
+	}
 	static int frameCount = 0;
 	frameCount++;
 	if (frameCount % 60 <= 0) {

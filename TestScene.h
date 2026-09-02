@@ -28,4 +28,5 @@ private:
 	int score = 10;
 	int time = 0;
 	int life;
+	XMFLOAT3 startPlayerPos;
 };

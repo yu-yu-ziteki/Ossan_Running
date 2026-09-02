@@ -68,7 +68,7 @@ void Player::Initialize()
 {
 	hWalkModel_ = Model::Load("Walking.fbx");
 	Model::SetAnimFrame(hWalkModel_, 0, 59, 1.0);
-	transform_.position_ = { 0.5f, 0.0, 0.5f };
+	transform_.position_ = { 5.0f, -7.0, 0.5f };
 	hIdleModel_ = Model::Load("Idle.fbx");
 	Model::SetAnimFrame(hIdleModel_, 0, 117, 1.0);
 }
@@ -91,12 +91,12 @@ void Player::Update()
 
 	if (pstate != PLAYER_STATE::PLAYER_TURN)
 	{
-		if (Input::IsKey(DIK_LEFT))
+		if (Input::IsKey(DIK_LEFT) && transform_.position_.x >= 2.0f)
 		{
 			pdirection = PLAYER_DIRECTION::PLAYER_LEFT;
 			pstate = PLAYER_STATE::PLAYER_WALK;
 		}
-		if (Input::IsKey(DIK_RIGHT))
+		if (Input::IsKey(DIK_RIGHT) && transform_.position_.x <= 51.0f)
 		{
 			pdirection = PLAYER_DIRECTION::PLAYER_RIGHT;
 			pstate = PLAYER_STATE::PLAYER_WALK;
@@ -171,7 +171,24 @@ void Player::Update()
 	}
 
 	//pos = XMVectorAdd(pos, SPEED*move);
+	if (!isJump_ && Input::IsKey(DIK_SPACE)) 
+	{
+		jumpVelocity_ = 0.2f; // ‰‘¬
+		isJump_ = true;
+	}
+	if (isJump_)
+	{
+		transform_.position_.y += jumpVelocity_;
+		jumpVelocity_ -= 0.01f;                  
 
+	
+		if (transform_.position_.y <= -7.0f)
+		{
+			transform_.position_.y = -7.0f;
+			isJump_ = false;
+			jumpVelocity_ = 0.0f;
+		}
+	}
 }
 
 void Player::Draw()
