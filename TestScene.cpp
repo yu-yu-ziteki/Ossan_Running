@@ -80,20 +80,22 @@ void TestScene::Draw()
 		score = pPlayer->GetScore();
 	}
 
+	
+	//Transform bgTransform;
+	//bgTransform.position_ = { 50.0f, 50.0f, 50.0f };
+	//RECT rect = { 0, 0, (LONG)pBackgroundSprite_->GetTextureSize().x, (LONG)pBackgroundSprite_->GetTextureSize().y };
+	//pBackgroundSprite_->Draw(bgTransform, rect, 1.0f);
 	std::string scrText = "SCORE: " + std::to_string(score);
 	pText_->Draw(20, 20, scrText.c_str());
 	std::string timeText = "TIME: " + std::to_string(time);
 	pText_->Draw(20, 60, timeText.c_str());
 	std::string lifeText = "LIFE: " + std::to_string(life);
 	pText_->Draw(20, 100, lifeText.c_str());
-	Transform bgTransform;
-	RECT rect = { 0, 0, (LONG)pBackgroundSprite_->GetTextureSize().x, (LONG)pBackgroundSprite_->GetTextureSize().y };
-	pBackgroundSprite_->Draw(bgTransform, rect, 1.0f);
 }
 
 //開放
 void TestScene::Release()
 {
 	pText_->Release();//テキスト開放
-	delete pBackgroundSprite_;
+	//delete pBackgroundSprite_;
 }

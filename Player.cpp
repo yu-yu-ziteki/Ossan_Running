@@ -91,12 +91,12 @@ void Player::Update()
 
 	if (pstate != PLAYER_STATE::PLAYER_TURN)
 	{
-		if (Input::IsKey(DIK_LEFT) && transform_.position_.x >= 2.0f)
+		if (Input::IsKey(DIK_LEFT))
 		{
 			pdirection = PLAYER_DIRECTION::PLAYER_LEFT;
 			pstate = PLAYER_STATE::PLAYER_WALK;
 		}
-		if (Input::IsKey(DIK_RIGHT) && transform_.position_.x <= 51.0f)
+		if (Input::IsKey(DIK_RIGHT))
 		{
 			pdirection = PLAYER_DIRECTION::PLAYER_RIGHT;
 			pstate = PLAYER_STATE::PLAYER_WALK;
@@ -188,6 +188,13 @@ void Player::Update()
 			isJump_ = false;
 			jumpVelocity_ = 0.0f;
 		}
+	}
+	if (transform_.position_.x <= 2.0f) {
+		transform_.position_.x = 2.0f;
+	}
+
+	if (transform_.position_.x >= 51.0f){
+		transform_.position_.x = 51.0f;
 	}
 }
 
