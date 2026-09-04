@@ -11,6 +11,7 @@
 
 namespace
 {
+	const float BLOCK_SIZE = 2.0f;
 	enum PLAYER_STATE
 	{
 		PLAYER_IDLE,
@@ -189,13 +190,14 @@ void Player::Update()
 			jumpVelocity_ = 0.0f;
 		}
 	}
-	if (transform_.position_.x <= 2.0f) {
+	/*if (transform_.position_.x <= 2.0f) {
 		transform_.position_.x = 2.0f;
 	}
 
 	if (transform_.position_.x >= 51.0f){
 		transform_.position_.x = 51.0f;
-	}
+	}*/
+	ResolveWallCollision(pos, move);
 }
 
 void Player::Draw()
@@ -244,4 +246,22 @@ void Player::OnCollision(GameObject* pTarget)
 		}
 	}
 
+}
+
+void Player::ResolveWallCollision(XMVECTOR& pos, const XMVECTOR& move)
+{
+	gmap = ground_->GetMapData();
+	int mapWidth = (int)gmap[0].size();
+	int mapHeight = (int)gmap.size();
+	XMFLOAT3 wpos = transform_.position_;
+	int mapX = (int)((wpos.x + BLOCK_SIZE / 2.0f) / BLOCK_SIZE);
+	int mapZ = 1;
+	if (mapX >= 0 && mapX < mapWidth && mapZ >= 0 && mapZ < mapHeight)
+	{
+		if (gmap[mapZ][mapX] == 1 && (pdirection == PLAYER_LEFT || pdirection == PLAYER_RIGHT))
+		{
+			pos = pos;
+			XMStoreFloat3(&transform_.position_, pos);
+		}
+	}
 }
