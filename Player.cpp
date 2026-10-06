@@ -174,7 +174,7 @@ void Player::Update()
 	//pos = XMVectorAdd(pos, SPEED*move);
 	if (!isJump_ && Input::IsKey(DIK_SPACE))
 	{
-		jumpVelocity_ = 0.2f; // ‰‘¬
+		jumpVelocity_ = 0.4f; // ‰‘¬
 		isJump_ = true;
 	}
 	if (isJump_)
@@ -245,7 +245,16 @@ void Player::OnCollision(GameObject* pTarget)
 			life_ -= 1;
 		}
 	}
+	if (pTarget->GetObjectName() == "MovingFloor") {
+		if (jumpVelocity_ <= 0.0f)
+		{
+			XMFLOAT3 floorPos = pTarget->GetPosition();
+			transform_.position_.y = floorPos.y + 1.0f; 
 
+			isJump_ = false;      
+			jumpVelocity_ = 0.0f;  
+		}
+	}
 }
 
 void Player::ResolveWallCollision(XMVECTOR& pos, const XMVECTOR& move)

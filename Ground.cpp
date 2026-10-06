@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Food.h"
 #include "Enemy.h"
+#include "MovingFloor.h"
 
 namespace
 {
@@ -28,6 +29,11 @@ Ground::Ground(GameObject* parent)
 		for (int x = 0; x < mapWidth_; x++)
 		{
 			mapData_[y][x] = csvData.GetValue(x, y);
+
+			if (mapData_[y][x] == 3) {
+				MovingFloor* movingFloor = Instantiate<MovingFloor>(this);
+				movingFloor->SetPosition({ (float)x, -(float)y + 12.0f, 0.5f });
+			}
 		}
 	}
 }
@@ -58,6 +64,8 @@ void Ground::Draw()
 				Model::SetTransform(model_t, blockTransform);
 				Model::Draw(model_t);
 			}
+
+		
 		}
 	}
 }
