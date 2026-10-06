@@ -34,5 +34,4 @@ private:
 	float invTimer_ = 0;
 	float jumpVelocity_ = 0.0f; 
 	bool isJump_ = false;       
-	void ResolveWallCollision(XMVECTOR& pos, const XMVECTOR& move); // •Ç“–‚½‚è”»’è
 };
