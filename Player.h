@@ -25,6 +25,9 @@ public:
 	//void AddScore(int value) { score_ += value; }
 	int GetScore() { return score_; }
 	int GetLife() { return life_; }
+	void SetPosition(XMFLOAT3 pos) {
+		transform_.position_ = pos;
+	}
 private:
 	int hWalkModel_;//歩きアニメーションのモデルハンドル
 	int hIdleModel_;//待機アニメーションのモデルハンドル
@@ -33,5 +36,6 @@ private:
 	int life_ = 5;
 	float invTimer_ = 0;
 	float jumpVelocity_ = 0.0f; 
-	bool isJump_ = false;       
+	bool isJump_ = false;  
+	bool isOnMovingFloor;
 };

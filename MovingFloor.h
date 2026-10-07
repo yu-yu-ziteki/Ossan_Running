@@ -22,11 +22,12 @@ public:
 		transform_.position_ = pos;
 		startPos_ = pos;
 	}
-
+	float GetDeltaX() const { return deltaX_; }
 private:
 	int hModel_;
 	XMFLOAT3 startPos_; // 移動の基準になる初期位置
 	float moveTimer_;   // 往復運動用のタイマー
+	float deltaX_;
 
 
 };

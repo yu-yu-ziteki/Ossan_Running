@@ -2,7 +2,7 @@
 #include "Engine/Model.h"
 #include <cmath>
 #include "Engine/BoxCollider.h"
-
+using namespace std;
 
 MovingFloor::MovingFloor(GameObject* parent)
 	:GameObject(parent, "MovingFloor"), hModel_(-1), moveTimer_(0.0f), startPos_({ 0, 0, 0 })
@@ -18,10 +18,12 @@ void MovingFloor::Initialize()
 
 void MovingFloor::Update()
 {
+	float oldX = transform_.position_.x;
+
 	moveTimer_ += 0.03f;
 
-
-	transform_.position_.x = startPos_.x + std::sin(moveTimer_) * 2.0f;
+	transform_.position_.x = startPos_.x + sin(moveTimer_) * 2.0f;
+	deltaX_ = transform_.position_.x - oldX;
 }
 
 void MovingFloor::Draw()

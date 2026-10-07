@@ -7,6 +7,7 @@
 #include "Engine/SphereCollider.h"
 #include "Food.h"
 #include "Enemy.h"
+#include "MovingFloor.h"
 
 
 namespace
@@ -77,7 +78,7 @@ void Player::Initialize()
 void Player::Update()
 {
 	if (invTimer_ > 0.0f) invTimer_ -= 1.0f;
-
+	isOnMovingFloor = false;
 	XMVECTOR pos = XMLoadFloat3(&transform_.position_);
 	XMVECTOR move = XMVectorSet(0, 0, 0, 0);
 	const float SPEED = 0.05f;
@@ -197,7 +198,8 @@ void Player::Update()
 	if (transform_.position_.x >= 51.0f){
 		transform_.position_.x = 51.0f;
 	}
-	
+	if (isOnMovingFloor == false) {
+	}
 }
 
 void Player::Draw()
@@ -225,20 +227,6 @@ void Player::Release()
 
 void Player::OnCollision(GameObject* pTarget)
 {
-	if (pTarget->GetObjectName() == "Food")
-	{
-		Food* food = (Food*)pTarget;
-		((Food*)pTarget)->KillMe();
-		
-		if (food->GetFoodType() == FOODTYPE_NORMAL)
-		{
-			score_ += 10;
-		}
-		else if (food->GetFoodType() == FOODTYPE_POWER)
-		{
-			score_ += 10000;
-		}
-	}
 	if (pTarget->GetObjectName() == "Enemy") {
 		if (invTimer_ <= 0.0f) {
 			invTimer_ = 60.0f;
@@ -248,8 +236,11 @@ void Player::OnCollision(GameObject* pTarget)
 	if (pTarget->GetObjectName() == "MovingFloor") {
 		if (jumpVelocity_ <= 0.0f)
 		{
+			isOnMovingFloor = true;
+			MovingFloor* floor = (MovingFloor*)pTarget;
 			XMFLOAT3 floorPos = pTarget->GetPosition();
 			transform_.position_.y = floorPos.y + 1.0f; 
+			transform_.position_.x += floor->GetDeltaX();
 
 			isJump_ = false;      
 			jumpVelocity_ = 0.0f;  
