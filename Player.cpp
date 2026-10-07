@@ -77,8 +77,8 @@ void Player::Initialize()
 
 void Player::Update()
 {
-	if (invTimer_ > 0.0f) invTimer_ -= 1.0f;
 	isOnMovingFloor = false;
+	if (invTimer_ > 0.0f) invTimer_ -= 1.0f;
 	XMVECTOR pos = XMLoadFloat3(&transform_.position_);
 	XMVECTOR move = XMVectorSet(0, 0, 0, 0);
 	const float SPEED = 0.05f;
@@ -177,6 +177,12 @@ void Player::Update()
 	{
 		jumpVelocity_ = 0.4f; // ‰‘¬
 		isJump_ = true;
+		isOnMovingFloor = false;
+	}
+	if (!isJump_ && !isOnMovingFloor && transform_.position_.y > -7.0f)
+	{
+		isJump_ = true;
+		jumpVelocity_ = 0.0f; 
 	}
 	if (isJump_)
 	{
@@ -198,8 +204,7 @@ void Player::Update()
 	if (transform_.position_.x >= 51.0f){
 		transform_.position_.x = 51.0f;
 	}
-	if (isOnMovingFloor == false) {
-	}
+
 }
 
 void Player::Draw()
@@ -234,17 +239,21 @@ void Player::OnCollision(GameObject* pTarget)
 		}
 	}
 	if (pTarget->GetObjectName() == "MovingFloor") {
+		MovingFloor* floor = (MovingFloor*)pTarget;
+		XMFLOAT3 floorPos = pTarget->GetPosition();
+		XMFLOAT3 playerPos = transform_.position_;
+		float diffX = playerPos.x - floorPos.x;
+		float diffY = playerPos.y - floorPos.y;
 		if (jumpVelocity_ <= 0.0f)
 		{
-			isOnMovingFloor = true;
-			MovingFloor* floor = (MovingFloor*)pTarget;
-			XMFLOAT3 floorPos = pTarget->GetPosition();
 			transform_.position_.y = floorPos.y + 1.0f; 
 			transform_.position_.x += floor->GetDeltaX();
 
 			isJump_ = false;      
 			jumpVelocity_ = 0.0f;  
+			isOnMovingFloor = true;
 		}
+		
 	}
 }
 
